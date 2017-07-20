@@ -52,16 +52,17 @@ func main() {
 	args := flag.Args()
 	var input []byte
 	var err error
-	if len(args) < 2 {
+	if len(args) < 1 {
 		input, err = ioutil.ReadAll(os.Stdin)
 		if err != nil {
 			printErrAndHelpThenExit(err)
 		}
 	} else {
-		f, err := os.Open(args[1])
+		f, err := os.Open(args[0])
 		if err != nil {
 			printErrAndHelpThenExit(err)
 		}
+		defer f.Close()
 		input, err = ioutil.ReadAll(f)
 		if err != nil {
 			printErrAndHelpThenExit(err)
